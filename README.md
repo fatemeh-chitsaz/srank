@@ -1,76 +1,66 @@
-# SibRank: SiBreNet Recommendation Framework
+# SibRank / SRank Recommendation Framework
 
-SibRank is a recommendation framework that leverages the SiBreNet (Structured Bipartite Network) algorithm. SiBreNet captures user preferences through a structured bipartite network, enabling the calculation of SRank values and the inference of personalized recommendations. This README provides an overview of the SibRank framework.
+An implementation of a graph-based recommendation workflow built around a **Structured Bipartite Network (SiBreNet)** and **SRank** scores.
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Algorithm Overview](#algorithm-overview)
-- [Dependencies](#dependencies)
-- [Usage](#usage)
-  - [1. SiBreNet Construction of Preference Data](#1-sibrenet-construction-of-preference-data)
-  - [2. Calculating SRank of the Target User](#2-calculating-srank-of-the-target-user)
-  - [3. Finding the Neighbors](#3-finding-the-neighbors)
-  - [4. Ranking Inference](#4-ranking-inference)
-  - [5. Top-k Recommendation](#5-top-k-recommendation)
+The project represents user preferences as a structured graph, estimates similarity through positive/negative ranking signals, finds relevant neighbors, infers missing rankings, and produces top-k recommendations.
 
-## Introduction
+## Pipeline
 
-SibRank is designed to provide personalized recommendations by constructing a structured bipartite network (SiBreNet) that captures user preferences. The framework includes steps for calculating SRank values, identifying neighbors, inferring rankings, and generating top-k recommendations.
+```text
+preference data
+      ↓
+SiBreNet construction
+      ↓
+positive / negative SRank
+      ↓
+neighbor discovery
+      ↓
+ranking inference
+      ↓
+top-k recommendation
+```
 
-## Algorithm Overview
+## Main stages
 
-### 1. SiBreNet Construction of Preference Data
-   - **Input**: User preference data, including rankings and temporal sequences.
-   - **Output**: Structured Bipartite Network (SiBreNet) capturing user preferences.
+### 1. SiBreNet construction
 
-### 2. Calculating SRank of the Target User
-   - **Input**: SiBreNet, target user (u).
-   - **Output**: Positive and negative SRank values for nodes in SiBreNet.
+Preference data — including rankings and temporal/order information — is converted into a structured bipartite network.
 
-### 3. Finding the Neighbors
-   - **Input**: SRank values, SiBreNet.
-   - **Output**: Neighbors of the target user based on SRank values.
+### 2. SRank calculation
 
-### 4. Ranking Inference
-   - **Input**: Neighbors, SiBreNet, target user.
-   - **Output**: Estimated preference matrix for the target user.
+For a target user, the method calculates positive and negative ranking signals over the graph.
 
-### 5. Top-k Recommendation
-   - **Input**: Estimated preference matrix, original ranking data.
-   - **Output**: Top-k recommendations for the target user.
+### 3. Neighbor discovery
+
+Users with related preference structure are identified using the computed SRank information.
+
+### 4. Ranking inference
+
+Neighbor information is used to estimate the target user's missing preferences.
+
+### 5. Top-k recommendation
+
+The inferred ranking is converted into a final recommendation list.
 
 ## Dependencies
 
-- pandas
-- numpy
-- scipy
-- networkx
-
-Install the dependencies using the following command:
 ```bash
 pip install pandas numpy scipy networkx
 ```
 
-## Usage
+## Project status
 
-### 1. SiBreNet Construction of Preference Data
+The repository currently captures the algorithmic implementation and workflow, but it does not yet include a polished benchmark section.
 
-Construct a structured bipartite network (SiBreNet) to capture user preferences, distinguishing between agreements and disagreements.
+For a research-quality release, the next additions should be:
 
-### 2. Calculating SRank of the Target User
+- dataset description and preprocessing;
+- explicit train/test protocol;
+- recommendation metrics such as Precision@K, Recall@K, NDCG@K, and MAP;
+- baseline comparisons;
+- runtime/complexity measurements;
+- experiment seeds and reproducible scripts.
 
-Calculate positive and negative SRank values for nodes in SiBreNet, specifically for the target user.
+## Why keep this repository public?
 
-### 3. Finding the Neighbors
-
-Identify neighbors of the target user based on SRank values, considering users with similar preferences.
-
-### 4. Ranking Inference
-
-Infer the ranking preferences of the target user by considering the preferences of their neighbors in SiBreNet.
-
-### 5. Top-k Recommendation
-
-Provide top-k recommendations for the target user based on the inferred preferences.
-
-Feel free to adjust parameters, file paths, or functions as needed for your specific use case. The framework aims to facilitate personalized recommendations by incorporating user preferences within a structured network.
+It represents graph-based recommendation work and a different class of ML problem from the deep-learning projects elsewhere on this profile. The strongest next improvement is not more prose — it is a reproducible evaluation table.
