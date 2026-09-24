@@ -61,6 +61,4 @@ For a research-quality release, the next additions should be:
 - runtime/complexity measurements;
 - experiment seeds and reproducible scripts.
 
-## Why keep this repository public?
 
-It represents graph-based recommendation work and a different class of ML problem from the deep-learning projects elsewhere on this profile. The strongest next improvement is not more prose — it is a reproducible evaluation table.
